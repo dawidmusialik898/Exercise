@@ -1,0 +1,114 @@
+using Excercise;
+
+namespace ExcerciseTests
+{
+    public class ArrayStringsServiceTests
+    {
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
+        [InlineData(new int[] { 1, 0, 2, 0, 3, 0 }, new int[] { 1, 2, 3, 0, 0, 0 })]
+        [InlineData(new int[] { 1, 0, 0, 2, 0, 3, 0 }, new int[] { 1, 2, 3, 0, 0, 0, 0 })]
+        [InlineData(new int[] { 0, 0, 0, 0 }, new int[] { 0, 0, 0, 0 })]
+        [InlineData(new int[] { 0 }, new int[] { 0 })]
+        [InlineData(new int[] { }, new int[] { })]
+        public void MoveZeros_ShoudReturnModifiedArray(int[] input, int[] expectedOutput)
+        {
+            //arrange & act
+            ArrayStringsService.MoveZeroes(input);
+
+            //assert
+            for (var i = 0; i < expectedOutput.Length; i++)
+            {
+                Assert.Equal(input[i], expectedOutput[i]);
+            }
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4, 4, 4, 4 }, 4)]
+        [InlineData(new int[] { 1, 1, 1, 1, 1, 4, 4, 4, 4 }, 1)]
+        [InlineData(new int[] { 1 }, 1)]
+        [InlineData(new int[] { 1, 1 }, 1)]
+        [InlineData(new int[] { 1, 2, 1 }, 1)]
+        public void MajorityElement_ShouldReturnMajorityElement(int[] input, int expectedOutput)
+        {
+            //arrange & act
+            var output = ArrayStringsService.MajorityElement(input);
+            //assert
+            Assert.Equal(expectedOutput, output);
+        }
+
+        [Theory]
+        [InlineData("asd", "azsgddf", true)]
+        [InlineData("asdf", "asd", false)]
+        [InlineData("asdfghijkz", "asdfghijkd", false)]
+        [InlineData("", "", true)]
+        [InlineData("", "asdf", true)]
+        [InlineData("gf", "agsdf", true)]
+        [InlineData("aaaaa", "bbaaaa", false)]
+        [InlineData("aaaaa", "aaaabb", false)]
+        public void IsSubsequence_ShouldSayIf_S_Is_Subsequent_Of_T(string s, string t, bool expectedOutput)
+        {
+            //arrange & act
+            var output = ArrayStringsService.IsSubsequence(s, t);
+            //assert
+            Assert.Equal(expectedOutput, output);
+        }
+
+        [Theory]
+        [InlineData(new string[] { "asdf", "ghijk", "xzsaqs" }, "")]
+        [InlineData(new string[] { "", "", "x" }, "")]
+        [InlineData(new string[] { "abyulkhlu", "abyuyk", "absewtx" }, "ab")]
+        [InlineData(new string[] { "ddcdddd", "ddyddddd", "ddsdddddd" }, "dd")]
+        public void LongestCommonPrefix_ShouldReturnCorrectPrefix(string[] input, string expectedOutput)
+        {
+            //arrange & act
+            var output = ArrayStringsService.LongestCommonPrefix(input);
+            //assert
+            Assert.Equal(expectedOutput, output);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, new int[] { 5, 6, 7, 1, 2, 3, 4 })]
+        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7 }, 3, new int[] { 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4 })]
+        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7 }, 9, new int[] { 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5 })]
+        [InlineData(new int[] { -1, -100, 3, 99 }, 2, new int[] { 3, 99, -1, -100 })]
+        [InlineData(new int[] { 2, 3, 4 }, 5, new int[] { 3, 4, 2 })]
+        public void RotateTests(int[] nums, int k, int[] expectedOutput)
+        {
+            //arrange & act
+            ArrayStringsService.Rotate(nums, k);
+            //assert
+            Assert.Equal(expectedOutput, nums);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4 }, new int[] { 24, 12, 8, 6 })]
+        [InlineData(new int[] { -1, 1, 0, -3, 3 }, new int[] { 0, 0, 9, 0, 0 })]
+        [InlineData(new int[] { -1, -1, 1, 0, -3, 3 }, new int[] { 0, 0, 0, -9, 0, 0 })]
+        [InlineData(new int[] { -1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 0, -3, 3 }, new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0 })]
+        [InlineData(new int[] { 1, -1 }, new int[] { -1, 1 })]
+        [InlineData(new int[] { 9, 0, -2 }, new int[] { 0, -18, 0 })]
+        public void ProductExceptSelfTests(int[] nums, int[] expectedOutput)
+        {
+            //arrange & act
+            var output = ArrayStringsService.ProductExceptSelf(nums);
+            //assert
+            Assert.Equal(expectedOutput, output);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4 }, new int[] { 24, 12, 8, 6 })]
+        [InlineData(new int[] { -1, 1, 0, -3, 3 }, new int[] { 0, 0, 9, 0, 0 })]
+        [InlineData(new int[] { -1, -1, 1, 0, -3, 3 }, new int[] { 0, 0, 0, -9, 0, 0 })]
+        [InlineData(new int[] { -1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 0, -3, 3 }, new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0 })]
+        [InlineData(new int[] { 1, -1 }, new int[] { -1, 1 })]
+        [InlineData(new int[] { 9, 0, -2 }, new int[] { 0, -18, 0 })]
+        public void ProductExceptSelfV2Tests(int[] nums, int[] expectedOutput)
+        {
+            //arrange & act
+            var output = ArrayStringsService.ProductExceptSelfV2(nums);
+            //assert
+            Assert.Equal(expectedOutput, output);
+        }
+    }
+}
