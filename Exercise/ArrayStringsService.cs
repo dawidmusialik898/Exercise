@@ -1,9 +1,15 @@
 ﻿using System.Net.Http.Headers;
 
-namespace Excercise;
+namespace Exercise;
 
 public static class ArrayStringsService
 {
+    /// <summary>
+    /// Leetcode 283.
+    /// Given an integer array nums, move all 0's to the end of it
+    /// while maintaining the relative order of the non-zero elements.
+    /// </summary>
+    /// <param name="nums">Given integer array</param>
     public static void MoveZeroes(int[] nums)
     {
         var moves = 0;
@@ -24,12 +30,26 @@ public static class ArrayStringsService
         while (moves > 0);
     }
 
+    /// <summary>
+    /// Leetcode 169.
+    /// The majority element is the element that appears more than ⌊n / 2⌋ times.
+    /// You may assume that the majority element always exists in the array.
+    /// </summary>
+    /// <param name="nums">Given integer array</param>
+    /// <returns> Majority element </returns>
     public static int MajorityElement(int[] nums)
     {
         var distict = nums.Distinct();
         return distict.First(x => nums.Count(y => y == x) > nums.Length / 2);
     }
 
+    /// <summary>
+    /// Leetcode 392.
+    /// Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+    /// </summary>
+    /// <param name="s">Given string</param>
+    /// <param name="t">Possible substring</param>
+    /// <returns> Return strue if t is substring of s, false otherwise </returns>
     public static bool IsSubsequence(string s, string t)
     {
         var index = 0;
@@ -47,6 +67,7 @@ public static class ArrayStringsService
     }
 
     /// <summary>
+    /// Leetcode 14.
     /// Function to find the longest common prefix string amongst an array of strings
     /// </summary>
     /// <param name="strs">Array of strings</param>
@@ -71,6 +92,7 @@ public static class ArrayStringsService
     }
 
     /// <summary>
+    /// Leetcode 189.
     /// Rotates an array to the right by k steps, where k is non-negative.
     /// </summary>
     /// <param name="nums">given array</param>
@@ -92,6 +114,7 @@ public static class ArrayStringsService
     }
 
     /// <summary>
+    /// Leetcode 238.
     /// Returns an array such that array[i] is equal to the product of all the elements of inputArray except inputArray[i].
     /// </summary>
     /// <param name="nums"></param>
@@ -145,6 +168,7 @@ public static class ArrayStringsService
     }
 
     /// <summary>
+    /// Leetcode 238.
     /// Goal of V2 is to improve performance.
     /// Returns an array such that array[i] is equal to the product of all the elements of inputArray except inputArray[i].
     /// </summary>
@@ -196,5 +220,46 @@ public static class ArrayStringsService
             return resultArray;
         }
     }
+    /// <summary>
+    /// Leetcode 238.
+    /// V3 is the version after checking solution in internet.
+    /// Returns an array such that array[i] is equal to the product of all the elements of inputArray except inputArray[i].
+    /// </summary>
+    /// <param name="nums"></param>
+    /// <returns></returns>
+    public static int[] ProductExceptSelfV3(int[] nums)
+    {
+        int prefix = 1;
+        int postfix = 1;
+        int[] output = new int[nums.Length];
 
+        for (int i = 0, k = nums.Length - 1; i < nums.Length; i++, k--)
+        {
+            if(i<k)
+            {
+                output[i] = prefix;
+                prefix = prefix * nums[i];
+
+                output[k] = postfix;
+                postfix = postfix * nums[k];
+            }
+            else if(i==k)
+            {
+                output[i] = prefix * postfix;
+
+                prefix = prefix * nums[i];
+                postfix = postfix * nums[i];
+            }
+            else
+            {
+                output[i] = output[i] * prefix;
+                prefix = prefix * nums[i];
+
+                output[k] = output[k] * postfix;
+                postfix = postfix * nums[k];
+            }
+        }
+
+        return output;
+    }
 }

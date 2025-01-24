@@ -1,6 +1,6 @@
-using Excercise;
+using Exercise;
 
-namespace ExcerciseTests
+namespace ExerciseTests
 {
     public class ArrayStringsServiceTests
     {
@@ -107,6 +107,21 @@ namespace ExcerciseTests
         {
             //arrange & act
             var output = ArrayStringsService.ProductExceptSelfV2(nums);
+            //assert
+            Assert.Equal(expectedOutput, output);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4 }, new int[] { 24, 12, 8, 6 })]
+        [InlineData(new int[] { -1, 1, 0, -3, 3 }, new int[] { 0, 0, 9, 0, 0 })]
+        [InlineData(new int[] { -1, -1, 1, 0, -3, 3 }, new int[] { 0, 0, 0, -9, 0, 0 })]
+        [InlineData(new int[] { -1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 0, -3, 3 }, new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0 })]
+        [InlineData(new int[] { 1, -1 }, new int[] { -1, 1 })]
+        [InlineData(new int[] { 9, 0, -2 }, new int[] { 0, -18, 0 })]
+        public void ProductExceptSelfV3Tests(int[] nums, int[] expectedOutput)
+        {
+            //arrange & act
+            var output = ArrayStringsService.ProductExceptSelfV3(nums);
             //assert
             Assert.Equal(expectedOutput, output);
         }
