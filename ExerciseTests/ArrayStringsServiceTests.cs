@@ -125,5 +125,50 @@ namespace ExerciseTests
             //assert
             Assert.Equal(expectedOutput, output);
         }
+
+        [Theory]
+        [InlineData(new int[] {}, new int[] {}, 0)]
+        [InlineData(new int[] {5}, new int[] {5}, 1)]
+        public void RemoveDuplicates_ShouldReturnNumsLength_And_LeaveArrayUntouched(
+                int[]inputArray, int[]expectedOutputArray, int expectedOutput)
+        {
+            var output = ArrayStringsService.RemoveDuplicates(inputArray);
+
+            Assert.Equal(expectedOutput, output);
+
+            for (int i = 0; i < expectedOutputArray.Length; i++)
+            {
+                Assert.Equal(expectedOutputArray[i], inputArray[i]);
+            }
+        }
+        
+        [Theory]
+        [InlineData(new int[] {1,2,3,4}, new int[] {1,2,3,4}, 4)]
+        [InlineData(new int[] {1,1,1,1,2,3,4}, new int[] {1,2,3,4}, 4)]
+        [InlineData(new int[] {1,2,2,2,2,2,3,3,3,3,3,4,4,4,4}, new int[] {1,2,3,4}, 4)]
+        [InlineData(new int[] {1,1,1,1,2,2,2,3,4,87,97}, new int[] {1,2,3,4,87,97}, 6)]
+        public void RemoveDuplicates_ShouldReturnProperUniqueElementsCount_And_ModifyPassedArray(
+                int[]inputArray, int[]expectedOutputArray, int expectedOutput)
+        {
+            var output = ArrayStringsService.RemoveDuplicates(inputArray);
+
+            Assert.Equal(expectedOutput, output);
+
+            for (int i = 0; i < expectedOutputArray.Length; i++)
+            {
+                Assert.Equal(expectedOutputArray[i], inputArray[i]);
+            }
+        }
+
+        [Theory]
+        [InlineData(new int[] {7,1,5,3,6,4}, 5)]
+        [InlineData(new int[] {7,6,5,3,1}, 0)]
+        [InlineData(new int[] {7,2,15,1,6,4}, 13)]
+        public void MaxProfit_ShouldReturnProperValueForGivenStockPrices(int[] prices, int expectedOutput)
+        {
+            var output = ArrayStringsService.MaxProfit(prices);
+
+            Assert.Equal(expectedOutput, output);
+        }
     }
 }

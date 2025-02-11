@@ -220,6 +220,7 @@ public static class ArrayStringsService
             return resultArray;
         }
     }
+
     /// <summary>
     /// Leetcode 238.
     /// V3 is the version after checking solution in internet.
@@ -261,5 +262,66 @@ public static class ArrayStringsService
         }
 
         return output;
+    }
+
+    /// <summary>
+    /// Leetcode 28.
+    /// Remove the duplicates in-place such that each unique element appears only once.
+    /// The relative order of the elements should be kept the same.
+    /// Then return the number of unique elements in nums.
+    /// </summary>
+    /// <param name="nums">Integer array nums sorted in non-decreasing order</param>
+    /// <returns>The number of unique elements in nums</returns>
+    public static int RemoveDuplicates(int[] nums) 
+    {
+        if(nums.Length < 2)
+        {
+            return nums.Length;
+        }
+        
+        int index = 0;
+
+        for(int i = 1; i < nums.Length; i++)
+        {
+            if(nums[i] > nums[index])
+            {
+                index++;
+                nums[index] = nums[i];
+            }
+        }
+
+        return index+1;
+    }
+
+    /// <summary>
+    /// Leetcode 121 'Best Time to Buy and Sell Stock'.
+    /// Maximize your profit by choosing a single day to buy one stock
+    /// and choosing a different day in the future to sell that stock.
+    /// </summary>
+    /// <param name="nums">Array where prices[i] is the price of a given stock on the ith day <param>
+    /// <returns>The maximum profit you can achieve from this transaction.
+    /// If you cannot achieve any profit, return 0 <returns>
+    public static int MaxProfit(int[] prices)
+    {
+        int lowestPrice = prices[0];
+        int maxProfit = 0;
+
+        for(int i = 1; i < prices.Length; i++)
+        {
+            if(prices[i]<=lowestPrice)
+            {
+                lowestPrice = prices[i];
+            }
+            else
+            {
+                var diff = prices[i] - lowestPrice;
+                if(diff > maxProfit)
+                {
+                    maxProfit = diff;
+                }
+            }
+        }
+
+        return maxProfit;
     }
 }
