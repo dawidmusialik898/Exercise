@@ -170,5 +170,18 @@ namespace ExerciseTests
 
             Assert.Equal(expectedOutput, output);
         }
+
+        [Theory]
+        [InlineData(new int[] {5}, 0)]
+        [InlineData(new int[] {7,1,5,3,6,4}, 7)]
+        [InlineData(new int[] {1,2,3,4,5}, 4)]
+        [InlineData(new int[] {7,6,4,3,1}, 0)]
+        [InlineData(new int[] {7,2,4,1,7,4,5,8}, 12)]
+        public void MaxProfitII_ShouldReturnProperValueForGivenStockPrices(int[] prices, int expectedOutput)
+        {
+            var output = ArrayStringsService.MaxProfitII(prices);
+
+            Assert.Equal(expectedOutput, output);
+        }
     }
 }

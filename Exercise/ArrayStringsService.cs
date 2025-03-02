@@ -298,7 +298,7 @@ public static class ArrayStringsService
     /// Maximize your profit by choosing a single day to buy one stock
     /// and choosing a different day in the future to sell that stock.
     /// </summary>
-    /// <param name="nums">Array where prices[i] is the price of a given stock on the ith day <param>
+    /// <param name="prices">Array where prices[i] is the price of a given stock on the ith day <param>
     /// <returns>The maximum profit you can achieve from this transaction.
     /// If you cannot achieve any profit, return 0 <returns>
     public static int MaxProfit(int[] prices)
@@ -323,5 +323,46 @@ public static class ArrayStringsService
         }
 
         return maxProfit;
+    }
+
+    /// <summary>
+    /// Leetcode 122. Best Time to Buy and Sell Stock II
+    /// On each day, you may decide to buy and/or sell the stock.
+    /// You can only hold at most one share of the stock at any time.
+    /// However, you can buy it then immediately sell it on the same day.
+    /// Find and return the maximum profit you can achieve.
+    /// </summary>
+    /// <param name="prices">Array where prices[i] is the price of a given stock on the ith day <param>
+    /// <returns>The maximum profit you can achieve from this transaction.
+    /// If you cannot achieve any profit, return 0 <returns>
+    public static int MaxProfitII(int[] prices)
+    {
+        var priceIsRising = false;
+        var buyRate = -1;
+        var profit = 0;
+
+        for(int i = 1; i < prices.Length; i++ )
+        {
+            if(priceIsRising)
+            {
+                if(prices[i]<prices[i-1])
+                {
+                    profit+=prices[i-1]-buyRate;
+                    priceIsRising = false;
+                }
+            }
+            else
+            {
+                if(prices[i]>prices[i-1])
+                {
+                    buyRate = prices[i-1];
+                    priceIsRising = true;
+                }
+            }
+        }
+        
+        if(priceIsRising) profit += prices[prices.Length - 1] - buyRate;
+
+        return profit;
     }
 }
