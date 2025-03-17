@@ -365,4 +365,126 @@ public static class ArrayStringsService
 
         return profit;
     }
+
+    /// <summary>
+    /// Leetcode 217. Contains Duplicate
+    /// Given an interger arraym return true if any value appears at least twice in the array.
+    /// Return false if every array is distinct.
+    /// </summary>
+    /// <param name="nums">Array of integers where: 0 < nums.length <= 10^5 and -10^9 <= nums[i] <= 10^9 <param>
+    /// <returns> True if array contains duplicates, false otherwise. <returns>
+    public static bool ContainsDuplicate(int[] nums)
+    {
+        //using linq -> return nums.ToList().Distinct().Length != nums.Length
+        var dict = new Dictionary<int, int>();
+
+        foreach(var num in nums)
+        {
+            if(dict.ContainsKey(num))
+            {
+                return true;
+            }
+            else
+            {
+                dict.Add(num, 1);
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Leetcode 268. Missing Number. 
+    /// Given an array containing  disctinct numbers in the range [0,n]
+    /// return the only number in the range that is missing from the array.
+    /// </summary>
+    public static int MissingNumber(int[] nums)
+    {
+        var sum = 0;
+
+        for(int i = 0; i < nums.Length; i++)
+        {
+            sum+=i;
+            sum-=nums[i];
+        }
+        return sum + nums.Length;
+    }
+    
+    /// <summary>
+    /// Leetcode 448. Find all numbers disappeared in array. 
+    /// Given an array 'nums' of n integers where nums[i] is in the range [1,n],
+    /// return an array of all the integers in the range [1,n] that do not appear in array.
+    /// </summary>
+    public static IEnumerable<int> FindDisappearedNumbers(int[] nums)
+    {
+        var output = new List<int>();
+        var set = new HashSet<int>(nums);
+
+        for(int i = 1; i <= nums.Length; i++)
+        {
+            if(!set.Contains(i))
+                output.Add(i);
+        }
+        return output;
+    }
+    
+    //solution from leetcode
+    public static IEnumerable<int> FindDisappearedNumbersV2(int[] nums)
+    {
+        var output = new List<int>();
+
+        for(int i = 0; i < nums.Length; i++)
+        {
+            var j = Math.Abs(nums[i])-1;
+            nums[j]= -Math.Abs(nums[j]);
+        }
+
+        for(int i = 1; i <= nums.Length; i++)
+        {
+            if(nums[i-1] > 0) output.Add(i);
+        }
+        return output;
+    }
+
+    /// <summary>
+    /// Leetcode 1. Two sum.
+    /// Given an array of integers- nums - and integer target,
+    /// return indices of the two numbers such that they add up to target.
+    /// You may assume that each input would have exactly one solution.
+    /// Do not use same element twice.
+    public static int[] TwoSum(int[] nums, int target)
+    {
+        //O(n^2) complexity
+        for(int i = 0; i < nums.Length; i++)
+        {
+            for(int j = i+1; j<nums.Length; j++)
+            { 
+                if(i!=j)
+                {
+                    if(nums[i] + nums[j] == target)
+                        return [i,j];
+                }
+            }
+        }
+        return [0,0]; //never returned as we assume that we always have solution
+    }
+
+    //better runetime worse memory
+    public static int[] TwoSumV2(int[] nums, int target)
+    {
+        var set = new HashSet<int>(nums);
+
+        for(int i = 0; i<nums.Length; i++)
+        {
+            var x = target - nums[i];
+            if(set.Contains(x))
+            {
+                for (int j = i+1; j < nums.Length; j++)
+                {
+                    if(nums[j] == x)
+                        return [i,j];
+                }
+            }
+        }
+        return [0,0];
+    }
 }
