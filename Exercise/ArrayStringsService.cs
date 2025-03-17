@@ -471,19 +471,16 @@ public static class ArrayStringsService
     //better runetime worse memory
     public static int[] TwoSumV2(int[] nums, int target)
     {
-        var set = new HashSet<int>(nums);
+        var set = new Dictionary<int,int>();
 
         for(int i = 0; i<nums.Length; i++)
         {
             var x = target - nums[i];
-            if(set.Contains(x))
+            if(set.ContainsKey(x))
             {
-                for (int j = i+1; j < nums.Length; j++)
-                {
-                    if(nums[j] == x)
-                        return [i,j];
-                }
+                return [i,set[x]];
             }
+            set[nums[i]] = i;
         }
         return [0,0];
     }
