@@ -484,4 +484,32 @@ public static class ArrayStringsService
         }
         return [0,0];
     }
+
+    /// <summary>
+    /// Leetcode 2348. Find all numbers disappeared in array.
+    /// Given an integer array nums, return the number of subarrays filled with 0.
+    /// A subarray is a contiguous non-empty sequence of elements within an array.
+    /// </summary>
+    public static long ZeroFilledSubarray(int[] nums)
+    {
+        long output = 0;
+        long currentSum = 0;
+        int currentStrike =0;
+        for(int i = 0; i < nums.Length; i++)
+        {
+            if(nums[i] == 0)
+            {
+                currentStrike++;
+                currentSum +=currentStrike;
+            }
+            else
+            {
+                output +=currentSum;
+                currentSum =0;
+                currentStrike = 0;
+            }
+        }
+        output += currentSum;
+        return output;
+    }
 }

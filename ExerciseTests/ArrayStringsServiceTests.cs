@@ -183,5 +183,17 @@ namespace ExerciseTests
 
             Assert.Equal(expectedOutput, output);
         }
+
+        [Theory]
+        [InlineData(new int[] {0},1)]
+        [InlineData(new int[] {1,3,0,0,2,0,0,4},6)]
+        [InlineData(new int[] {0,0,0,2,0,0},9)]
+        [InlineData(new int[] {123,53,923,12},0)]
+        public void ZeroFilledSubarray_ShouldReturnCountOfAllSubarrays(int[] nums, int expectedOutput)
+        {
+            var output = ArrayStringsService.ZeroFilledSubarray(nums);
+
+            Assert.Equal(expectedOutput, output);
+        }
     }
 }

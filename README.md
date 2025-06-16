@@ -1,1 +1,1 @@
-Init of readme
+Repo to do some LeetCodes!
