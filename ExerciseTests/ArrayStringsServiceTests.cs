@@ -195,5 +195,21 @@ namespace ExerciseTests
 
             Assert.Equal(expectedOutput, output);
         }
+
+        [Theory]
+        [InlineData(new int[] {1,2,3,4,5},true)]
+        [InlineData(new int[] {1,2,3},true)]
+        [InlineData(new int[] {2,1,5,0,4,6},true)]
+        [InlineData(new int[] {0,1,0,0,4,6},true)]
+        [InlineData(new int[] {1,0,0,4},false)]
+        [InlineData(new int[] {0,1},false)]
+        [InlineData(new int[] {0},false)]
+        [InlineData(new int[] {5,4,3,2,1},false)]
+        public void IncreasingTriplet_ShouldReturnCorrectValue(int[]nums, bool expectedResult)
+        {
+            var result = ArrayStringsService.IncreasingTriplet(nums);
+
+            Assert.Equal(expectedResult, result);
+        }
     }
 }

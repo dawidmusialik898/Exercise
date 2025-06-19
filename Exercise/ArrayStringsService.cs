@@ -512,4 +512,32 @@ public static class ArrayStringsService
         output += currentSum;
         return output;
     }
+
+    /// <summary>
+    /// Leetcode 334. Increasing triplet subsequence.
+    /// Given an inteter array 'nums',
+    /// return true if there exists a sequence of i,j,k 
+    /// where i<j<k and nums[i]<nums[j]<nums[k].
+    /// In the other case return false
+    public static bool IncreasingTriplet(int[] nums)
+    {
+        if(nums.Length < 3)
+            return false;
+
+        int minSingle = nums[0];
+        int minDouble = Int32.MaxValue;
+
+        for(int i = 1; i < nums.Length; i++)
+        {
+            if(nums[i] > minDouble)
+                return true;
+
+            if(nums[i] > minSingle)
+                minDouble = nums[i];
+
+            if(nums[i] < minSingle)
+                minSingle = nums[i];
+        }
+        return false;
+    }
 }
