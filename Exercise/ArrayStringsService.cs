@@ -703,4 +703,19 @@ public static class ArrayStringsService
 
         return sb.ToString();
     }
+
+    /// <summary>
+    /// Leetcode 3085. Minimum deletions to make string k-special.
+    /// We consider word to be k-special if
+    /// |freq(word[i]) - freq(word[j])| <= k
+    /// for all indices i and j in the string.
+    /// Return the minimum number of characters
+    /// you need to delete to make word k-special.
+    public static int MinimumDeletions(string word, int k)
+    {
+        //TODO:
+        //some idea- count occurences of every character and based on that do some magic :D
+        return k;
+    }
+    
 }

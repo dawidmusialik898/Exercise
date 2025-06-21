@@ -1,7 +1,7 @@
 using Exercise;
 
-namespace ExerciseTests
-{
+namespace ExerciseTests;
+
     public class ArrayStringsServiceTests
     {
         [Theory]
@@ -271,5 +271,15 @@ namespace ExerciseTests
             var output = ArrayStringsService.Convert(s, numRows);
             Assert.Equal(expectedOutput, output);
         }
-    }
+
+        [Theory]
+        [InlineData("aabcaba",0,3)]
+        [InlineData("dabdcbdcdcd",2,2)]
+        [InlineData("aaabaaa",2,1)]
+        public void MinimumDeletions_ShouldReturnMinimalNumberOfDeletionsReqiredToMakeWordKSpecial(
+                string word, int k, int expectedOutput)
+        {
+            var output = ArrayStringsService.MinimumDeletions(word,k);
+            Assert.Equal(expectedOutput,output);
+        }
 }
