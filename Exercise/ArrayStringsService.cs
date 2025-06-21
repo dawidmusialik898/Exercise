@@ -540,4 +540,42 @@ public static class ArrayStringsService
         }
         return false;
     }
+
+    /// <summary>
+    /// Leetcode 41. First missing positive
+    /// Given an unsorted integer array nums.
+    /// Return the smallest positive integer
+    /// that is not present in nums
+    /// Implementation must be O(n) time and O(1)space.
+    public static int FirstMissingPositive(int[] nums)
+    {
+        for(int i = 0; i < nums.Length; i++)
+        {
+            if(nums[i] < 0)
+                nums[i] = 0;
+        }
+
+        for(int i = 0; i < nums.Length; i++)
+        {
+            int index = Math.Abs(nums[i])-1;
+            if(index >= 0 && index < nums.Length)
+            {
+               if(nums[index] > 0)
+                   nums[index] *= -1;
+               if(nums[index] == 0)
+                   nums[index] = -(nums.Length + 2);
+            }
+        }
+        
+        int zeroCount = 0;
+        for(int i = 1; i <= nums.Length; i++)
+        {
+            if(nums[i-1] >= 0)
+                return i;
+
+            if(nums[i-1] == 0)
+                zeroCount++;
+        }
+        return nums.Length + 1 - zeroCount;
+    }
 }

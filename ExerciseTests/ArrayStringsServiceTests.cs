@@ -211,5 +211,24 @@ namespace ExerciseTests
 
             Assert.Equal(expectedResult, result);
         }
+        
+        [Theory]
+        [InlineData(new int[] {1,1},2)]
+        [InlineData(new int[] {0,0,2,2,3,3},1)]
+        [InlineData(new int[] {0,0,1,-2,-2,3,3},2)]
+        [InlineData(new int[] {1,1,2,2,3,3},4)]
+        [InlineData(new int[] {1,2,0},3)]
+        [InlineData(new int[] {3,4,-1,1},2)]
+        [InlineData(new int[] {1,2,3,4},5)]
+        [InlineData(new int[] {1,2,3,5},4)]
+        [InlineData(new int[] {1,2,5,4},3)]
+        [InlineData(new int[] {10,5,4,3,1,6},2)]
+        [InlineData(new int[] {10,5,4,3,2,1,6},7)]
+        public void FirstMissingPositive_ShouldReturnCorrectValue(int[] nums, int expectedOutput)
+        {
+            var output = ArrayStringsService.FirstMissingPositive(nums);
+
+            Assert.Equal(expectedOutput, output);
+        }
     }
 }
