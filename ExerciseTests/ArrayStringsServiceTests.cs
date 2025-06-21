@@ -230,5 +230,32 @@ namespace ExerciseTests
 
             Assert.Equal(expectedOutput, output);
         }
+
+        [Theory]
+        [InlineData("A man, a plan, a canal: Panama",true)]
+        [InlineData("race a car",false)]
+        [InlineData("",true)]
+        [InlineData(" ",true)]
+        [InlineData("a.",true)]
+        public void IsPalindrome_ShouldReturnCorrectResult(string s, bool expectedResult)
+        {
+            var result = ArrayStringsService.IsPalindrome(s);
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Theory]
+        [InlineData("A man, a plan, a canal: Panama",true)]
+        [InlineData("race a car",false)]
+        [InlineData("",true)]
+        [InlineData(" ",true)]
+        [InlineData("a..",true)]
+        [InlineData("a.",true)]
+        [InlineData(",.",true)]
+        [InlineData("0P",false)]
+        public void IsPalindromeV2_ShouldReturnCorrectResult(string s, bool expectedResult)
+        {
+            var result = ArrayStringsService.IsPalindromeV2(s);
+            Assert.Equal(expectedResult, result);
+        }
     }
 }

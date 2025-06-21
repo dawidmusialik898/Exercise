@@ -578,4 +578,81 @@ public static class ArrayStringsService
         }
         return nums.Length + 1 - zeroCount;
     }
+
+    /// <summary> 
+    /// Leetcode 125. Valid palindrome.
+    /// A phrase is palindrome if, 
+    /// after converting all to lowercase 
+    /// and removing all non-alphanumeric characters,
+    /// it reads the same forward and backward.
+    /// Alphanumeric characters includes letters and numbers
+    /// Assumpion- we;re getting only ascii chars
+    public static bool IsPalindrome(string s)
+    {
+        s = s.ToLower();
+        var filteredInput = s.Where(character => isDigit(character) || isLetter(character)).ToArray();
+        
+        for (int i=0, j = filteredInput.Length - 1; i < filteredInput.Length; i++, j--)
+        {
+            if(filteredInput[i] != filteredInput[j])
+                return false;
+        }
+        return true;
+    }
+
+    //implementation without allocating memory and without extra iterations
+    public static bool IsPalindromeV2(string s)
+    {
+        for(int i = 0, j = s.Length -1; i < s.Length && j >=0; i++, j--)
+        {
+            //skip non alphanumeric
+            while(isAlphanumeric(s[i]) is false && i<s.Length-1)
+                i++;
+
+            while(isAlphanumeric(s[j]) is false && j>0)
+                j--;
+            
+            //case if only nonalphanumeric
+            if(isAlphanumeric(s[i]) is false && isAlphanumeric(s[j]) is false)
+                return true;
+
+            //handle lowercase/uppercase
+            if(isLetter(s[i]) && isLetter(s[j]))
+            {
+                if(s[i] != s[j] && s[i]-32 != s[j] && s[i]+32 !=s[j])
+                    return false;
+            }
+            else if(isDigit(s[i]) && isDigit(s[j]))
+            {
+                if(s[i] != s[j])
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static bool isAlphanumeric(char c)
+    => isLetter(c) || isDigit(c);
+    
+    private static bool isLetter(char c)
+    {
+        const char uppercaseA = 'A';
+        const char lowercaseA = 'a';
+
+        const int letters = 26;
+
+        return (c>=uppercaseA && c<uppercaseA+letters
+                || c>=lowercaseA && c<lowercaseA+letters);
+    }
+    
+    private static bool isDigit(char c)
+    {
+        const int digits = 10;
+        const char zero = '0';
+        return (c>=zero && c<zero+digits);
+    }
 }
