@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System;
+using System.Text;
 
 namespace Exercise;
 
@@ -654,5 +655,52 @@ public static class ArrayStringsService
         const int digits = 10;
         const char zero = '0';
         return (c>=zero && c<zero+digits);
+    }
+
+    /// <summary>
+    /// Leetcode 6. Zigzag conversion.
+    /// Convert given string to zigzag format
+    /// and returns it as it was read line by line.
+    /// To see more details - check leetcode explanation.
+    public static string Convert(string s, int numRows)
+    {
+        if(numRows == 1 || numRows >= s.Length)
+            return s;
+
+        int verticalOffset = 2 * (numRows - 1);
+        StringBuilder sb = new();
+        for(int i = 0; i < numRows && i < s.Length; i++)
+        {
+            sb.Append(s[i]);
+            
+            if(i == 0 || i == numRows - 1)
+            {
+                int nextIndex = i + verticalOffset; 
+                while(nextIndex < s.Length)
+                {
+                    sb.Append(s[nextIndex]);
+                    nextIndex += verticalOffset;
+                }
+            }
+            else
+            {
+                int diagonalOffset = 2 * (numRows - i - 1);
+                int nextIndexVertical = i + verticalOffset; 
+                int nextIndexDiagonal = i + diagonalOffset;
+
+                while(nextIndexVertical < s.Length && nextIndexDiagonal < s.Length)
+                {
+                    sb.Append(s[nextIndexDiagonal]);
+                    sb.Append(s[nextIndexVertical]);
+                    nextIndexDiagonal = nextIndexVertical + diagonalOffset;
+                    nextIndexVertical += verticalOffset; 
+               }
+
+                if(nextIndexDiagonal < s.Length)
+                    sb.Append(s[nextIndexDiagonal]);
+            }
+        }
+
+        return sb.ToString();
     }
 }

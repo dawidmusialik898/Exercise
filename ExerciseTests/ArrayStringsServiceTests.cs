@@ -257,5 +257,19 @@ namespace ExerciseTests
             var result = ArrayStringsService.IsPalindromeV2(s);
             Assert.Equal(expectedResult, result);
         }
+
+        [Theory]
+        [InlineData("PAYPALISHIRING", 3, "PAHNAPLSIIGYIR")]
+        [InlineData("PAYPALISHIRING", 4, "PINALSIGYAHRPI")]
+        [InlineData("A", 1, "A")]
+        [InlineData("A", 4, "A")]
+        [InlineData("AB", 1, "AB")]
+        [InlineData("AB", 2, "AB")]
+        [InlineData("AB", 9, "AB")]
+        public void Convert_ShouldReturnCorrectZigZagString(string s, int numRows, string expectedOutput)
+        {
+            var output = ArrayStringsService.Convert(s, numRows);
+            Assert.Equal(expectedOutput, output);
+        }
     }
 }
