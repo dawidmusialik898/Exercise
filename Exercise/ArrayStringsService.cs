@@ -711,11 +711,43 @@ public static class ArrayStringsService
     /// for all indices i and j in the string.
     /// Return the minimum number of characters
     /// you need to delete to make word k-special.
+    /// word consist of only english lowercase letters
     public static int MinimumDeletions(string word, int k)
     {
-        //TODO:
-        //some idea- count occurences of every character and based on that do some magic :D
-        return k;
+        const int count = 26;
+        int[] occur = new int[count];
+        for(int i = 0; i < word.Length; i++)
+        {
+            occur[word[i]-'a'] ++;
+        }
+        Array.Sort(occur);
+        // use sliding window technique -- looked up on internet
+        var bottomDeletions = 0;
+        var minimumDeletions = word.Length;
+
+        for(int i = 0; i < count; i++)
+        {
+            //skip lines at the start
+            if(occur[i] == 0)
+                continue; 
+
+            if(i - 1 >= 0)
+                bottomDeletions+=occur[i-1];
+
+            var topDeletions = 0;
+            for(int j = i+1; j < count; j++)
+            {
+               var diff =  occur[j]-occur[i];
+               if(diff > k)
+               {
+                   topDeletions+=diff-k;
+               }
+            }
+
+            var sum = bottomDeletions + topDeletions;
+            if(sum<minimumDeletions)
+                minimumDeletions = sum;
+        }
+        return minimumDeletions;
     }
-    
 }
