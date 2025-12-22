@@ -276,11 +276,44 @@ namespace ExerciseTests;
         [InlineData("aabcaba",0,3)]
         [InlineData("dabdcbdcdcd",2,2)]
         [InlineData("aaabaaa",2,1)]
-        [InlineData("ykekkdhehmhhympxhgjyjsmmkxerplpeegaqwqmswpmkldlllrywjqyeqlmwyphgprsdorlllpmmwdwxsxgkwaogxgglokjykrqyhaasjjxalxwdkjexdqksayxqplwmmleevdkdqdvgelmdhkqgryrqawxeammjhpwqgvdhygyvyqahvkjrrjvgpgqxyywwdvpgelvsprqodrvewqyajwjsrmqgqmardoqjmpymmvxxqoqvhywderllksxapamejdslhwpohmeryemphplqlkddyhqgpqykdhrehxwsjvaqymykjodvodjgqahrejxlykmmaxywdgaoqvgegdggykqjwyagdohjwpdypdwlrjksqkjwrkekvxjllwkgxxmhrwmxswmyrmwldqosavkpksjxwjlldhyhhrrlrwarqkyogamxmpqyhsldhajagslmeehakrxjxpjjmjpydgkehesoygvosrhvyhrqmdhlomgmrqjrmxyvmapmspmdygkhsprqsaxsvsrkovdjprjjyworgqoakrwarjsryydpmvhvyalawsmlsdgolsxgaqhryemvkpkhqvvagmxoapmsmwkrakldlhyojqhjjghjxgksroqpoxqsorrelhqeseegpqpewxydvkvaoaldmsdpmvogaykhpxkjkwmslqjsdqowkqawxadevkswdhywrxkpvqxmgeolayqojqqwxoomyasjrqrjmoearskssppmxpgwrmsjlsrjyqrjkgwjwglxogmkqjpjkwyaqxymelsyxypqxrjvpmssoakksemjhvaxm",0,2)]
+        [InlineData("ykekkdhehmhhympxhgjyjsmmkxerplpeegaqwqmswpmkldlllrywjqyeqlmwyphgprsdorlllpmmwdwxsxgkwaogxgglokjykrqyhaasjjxalxwdkjexdqksayxqplwmmleevdkdqdvgelmdhkqgryrqawxeammjhpwqgvdhygyvyqahvkjrrjvgpgqxyywwdvpgelvsprqodrvewqyajwjsrmqgqmardoqjmpymmvxxqoqvhywderllksxapamejdslhwpohmeryemphplqlkddyhqgpqykdhrehxwsjvaqymykjodvodjgqahrejxlykmmaxywdgaoqvgegdggykqjwyagdohjwpdypdwlrjksqkjwrkekvxjllwkgxxmhrwmxswmyrmwldqosavkpksjxwjlldhyhhrrlrwarqkyogamxmpqyhsldhajagslmeehakrxjxpjjmjpydgkehesoygvosrhvyhrqmdhlomgmrqjrmxyvmapmspmdygkhsprqsaxsvsrkovdjprjjyworgqoakrwarjsryydpmvhvyalawsmlsdgolsxgaqhryemvkpkhqvvagmxoapmsmwkrakldlhyojqhjjghjxgksroqpoxqsorrelhqeseegpqpewxydvkvaoaldmsdpmvogaykhpxkjkwmslqjsdqowkqawxadevkswdhywrxkpvqxmgeolayqojqqwxoomyasjrqrjmoearskssppmxpgwrmsjlsrjyqrjkgwjwglxogmkqjpjkwyaqxymelsyxypqxrjvpmssoakksemjhvaxm",2,161)]
         public void MinimumDeletions_ShouldReturnMinimalNumberOfDeletionsReqiredToMakeWordKSpecial(
                 string word, int k, int expectedOutput)
         {
             var output = ArrayStringsService.MinimumDeletions(word,k);
             Assert.Equal(expectedOutput,output);
         }
+
+        [Theory]
+        [InlineData("the sky is blue","blue is sky the")]
+        [InlineData("  hello world  ","world hello")]
+        [InlineData("a good      example","example good a")]
+        [InlineData("a","a")]
+        [InlineData("  a   ","a")]
+        public void ReverseWords_ShouldReturnStringWithReversedWordOrder(string input, string expectedOutput)
+        {
+            var output = ArrayStringsService.ReverseWords(input);
+            Assert.Equal(expectedOutput, output);
+        }
+
+        [Theory]
+        [InlineData("the sky is blue","blue is sky the")]
+        [InlineData("  hello world  ","world hello")]
+        [InlineData("a good      example","example good a")]
+        [InlineData("a","a")]
+        [InlineData("  a   ","a")]
+        public void ReverseWordsV2_ShouldReturnStringWithReversedWordOrder(string input, string expectedOutput)
+        {
+            var output = ArrayStringsService.ReverseWordsV2(input);
+            Assert.Equal(expectedOutput, output);
+        }
+
+	[Theory]
+        [InlineData(new int[] {1,8,6,2,5,4,8,6,7},49)]
+        [InlineData(new int[] {1,1},1)]
+	public void MaxAreaTest(int[] input, int expectedResult)
+	{
+		var output = ArrayStringsService.MaxArea(input);
+		Assert.Equal(expectedResult, output);
+	}
 }

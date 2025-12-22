@@ -750,4 +750,87 @@ public static class ArrayStringsService
         }
         return minimumDeletions;
     }
+
+    /// <summary> Leetcode 151. Reverse words in the array.
+    /// Given an input string s reverse the order of the words.
+    /// A word is defined by a sequence of non-space characters.
+    /// The words in s are separated in at lead one space.
+    /// Return a string of the words in reverse concatenated
+    /// by a single space.
+    public static string ReverseWords(string s)
+    {
+        List<string> splitted = new();
+        int startIndex = -1;
+        for(int i = 0; i < s.Length; i++)
+        {
+            if(s[i] != ' ' && startIndex == -1)
+            {
+                startIndex = i;
+            }
+
+            if(s[i] == ' ' && startIndex != - 1)
+            {
+                var word = s.Substring(startIndex,i-startIndex);
+                splitted.Add(word);
+                startIndex = -1;
+            }
+        }
+        if(startIndex != -1)
+        {
+            var word = s.Substring(startIndex,s.Length-startIndex);
+            splitted.Add(word);
+        }
+        StringBuilder sb = new();
+        for(int i = splitted.Count - 1; i >= 0; i--)
+        {
+            sb.Append(splitted[i]);
+            if(i != 0)
+                sb.Append(" ");
+        }
+        return sb.ToString();
+    }
+    
+    //version with using c# tooling more :)
+    public static string ReverseWordsV2(string s)
+    {
+        var splitted = s.Split(' ',StringSplitOptions.RemoveEmptyEntries);
+        Array.Reverse(splitted);
+        return string.Join(' ',splitted);
+    }
+
+    /// <summary>
+    /// Leetcode 11
+    public static int MaxArea(int[] height)
+    {
+        int i = 0;
+        int j = height.Length-1;
+        int maxWater = 0;
+        while(i!=j)
+        {
+            int water = 0;
+            if(height[i]<height[j])
+            {
+                water = (j-i)*height[i];
+                i++;
+            }
+            else
+            {
+                water = (j-i)*height[j];
+                j--;
+            }
+            if(water> maxWater)
+            {
+                maxWater = water;
+            }
+        }
+        return maxWater;
+    }
+
+    /// <summary>
+    /// Leetcode 4,
+    public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
+    {
+	return 0d;
+        //idea is to use fact that arrays are sorted and merge them by binary search.
+    }
 }
