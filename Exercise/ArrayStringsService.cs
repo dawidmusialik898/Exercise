@@ -830,7 +830,7 @@ public static class ArrayStringsService
     /// Leetcode 4,
     public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
     {
-	return 0d;
-        //idea is to use fact that arrays are sorted and merge them by binary search.
+		//idea is to use fact that arrays are sorted and merge them by binary search.
+		return 0d;
     }
 }

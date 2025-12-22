@@ -316,4 +316,21 @@ namespace ExerciseTests;
 		var output = ArrayStringsService.MaxArea(input);
 		Assert.Equal(expectedResult, output);
 	}
+
+	[Theory]
+	[InlineData(new int[] {1,2}, new int[] {3,4}, 2.5d)]
+	[InlineData(new int[] {1,3}, new int[] {2,4}, 2.5d)]
+	[InlineData(new int[] {1,4}, new int[] {2,3}, 2.5d)]
+	[InlineData(new int[] {1,2,3,4}, new int[] {5,6,7,8,9}, 5)]
+	[InlineData(new int[] {1,2,3,5}, new int[] {4,6,7,8,9}, 5)]
+	[InlineData(new int[] {1,2,5,6}, new int[] {3,4,7,8,9}, 5)]
+	[InlineData(new int[] {1,5,6,7}, new int[] {2,3,4,8,9}, 5)]
+	public void FindMedianSortedArraysTest(
+			int[] nums1, 
+			int[]nums2, 
+			double expectedResult)
+	{
+		var result = ArrayStringsService.FindMedianSortedArrays(nums1, nums2);
+		Assert.Equal(expectedResult, result);
+	}
 }
