@@ -799,11 +799,11 @@ public static class ArrayStringsService
     }
 
     /// <summary>
-    /// Leetcode 11
+    /// Leetcode 11. Container with most water.
     public static int MaxArea(int[] height)
     {
         int i = 0;
-        int j = height.Length-1;
+        int j = height.Length - 1;
         int maxWater = 0;
         while(i!=j)
         {
@@ -818,7 +818,7 @@ public static class ArrayStringsService
                 water = (j-i)*height[j];
                 j--;
             }
-            if(water> maxWater)
+            if(water > maxWater)
             {
                 maxWater = water;
             }
@@ -827,10 +827,34 @@ public static class ArrayStringsService
     }
 
     /// <summary>
-    /// Leetcode 4,
+    /// Leetcode 4, Median of two sorted arrays.
     public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
     {
-		//idea is to use fact that arrays are sorted and merge them by binary search.
+		//requirement is to do int in O(log(m+n)) where m and n are array size.
 		return 0d;
     }
+
+	/// Leetcode 15. 3Sum.
+	/// Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
+	/// such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+	public static IList<IList<int>> ThreeSum(int[] nums)
+	{
+		Dictionary<int,List<int>> groupedValues = []; 
+		IList<IList<int>> result = new List<IList<int>>();
+
+		//first loop is grouping values in dictionary and calculationg output for 0 and 1 
+		int seachedValue = 0 - nums[0] - nums[1];
+		for(int i = 2; i < nums.Length; i++)
+		{
+			if(!groupedValues.TryAdd(nums[i], new List<int>() {i})) 
+				groupedValues[nums[i]].Add(i);
+
+			if(nums[i] == searchedValue)
+			{
+				result.Add(new List<int>() {0,1,i});
+			}
+		}
+		//TODO: in a while loop go through all possible solutions ;)	
+		return result;
+	}
 }
