@@ -327,10 +327,24 @@ namespace ExerciseTests;
 	[InlineData(new int[] {1,5,6,7}, new int[] {2,3,4,8,9}, 5)]
 	public void FindMedianSortedArraysTest(
 			int[] nums1, 
-			int[]nums2, 
+			int[] nums2, 
 			double expectedResult)
 	{
 		var result = ArrayStringsService.FindMedianSortedArrays(nums1, nums2);
 		Assert.Equal(expectedResult, result);
+	}
+
+	[Fact]
+	public void ThreeSumTest()
+	{
+		// arrange
+		int[] input1 = [-1,0,1,2,-1,-4];
+		IList<IList<int>> expected1 = [[-1,-1,2],[-1,0,1]];
+		
+		// act	
+		var result1 = ArrayStringsService.ThreeSum(input1);
+
+		// assert
+		Assert.Equal(expected1, result1);
 	}
 }

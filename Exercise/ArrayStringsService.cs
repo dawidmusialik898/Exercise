@@ -843,7 +843,7 @@ public static class ArrayStringsService
 		IList<IList<int>> result = new List<IList<int>>();
 
 		//first loop is grouping values in dictionary and calculationg output for 0 and 1 
-		int seachedValue = 0 - nums[0] - nums[1];
+		int searchedValue = 0 - nums[0] - nums[1];
 		for(int i = 2; i < nums.Length; i++)
 		{
 			if(!groupedValues.TryAdd(nums[i], new List<int>() {i})) 
