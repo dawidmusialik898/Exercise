@@ -1,3 +1,4 @@
+using Xunit;
 using Exercise;
 
 namespace Tests;
