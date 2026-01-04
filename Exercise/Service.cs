@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Exercise;
 
-public static class ArrayStringsService
+public static class Service
 {
     /// <summary>
     /// Leetcode 283.
