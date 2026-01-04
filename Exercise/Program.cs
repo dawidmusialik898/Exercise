@@ -1,3 +1,4 @@
-﻿using Exercise;
+﻿using System;
+using Exercise;
 
 Console.WriteLine("hello world");
