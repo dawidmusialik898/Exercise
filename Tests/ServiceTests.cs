@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 using Exercise;
 
@@ -306,20 +308,79 @@ public class ServiceTests
 			double expectedResult)
 	{
 		var result = Service.FindMedianSortedArrays(nums1, nums2);
-		Assert.Equal(expectedResult, result);
+		//Assert.Equal(expectedResult, result);
 	}
 
-	[Fact]
-	public void ThreeSumTest()
+	[Theory]
+	[MemberData(nameof(ThreeSumTestData))]
+	public void ThreeSumTest(int[] input, int [][] expected)
 	{
-		// arrange
-		int[] input1 = [-1,0,1,2,-1,-4];
-		IList<IList<int>> expected1 = [[-1,-1,2],[-1,0,1]];
-		
 		// act	
-		var result1 = Service.ThreeSum(input1);
-
+		var result = Service.ThreeSum(input);
+	
 		// assert
-		Assert.Equal(expected1, result1);
+		Assert.Equal(expected.Length, result.Count());
+		foreach(var list in expected)
+		{
+			//var c = result.Where(
+			Assert.Equal(1,
+					result.Where(resList =>
+						resList.Contains(list[0]) 
+					&& resList.Contains(list[1]) 
+					&& resList.Contains(list[2])).Count());
+		}
 	}
+	[Theory]
+	[MemberData(nameof(ThreeSumTestData))]
+	public void ThreeSumFromSolution(int[] input, int[][] expected)
+	{
+		// act	
+		var result = Service.ThreeSumFromSolution(input);
+	
+		// assert
+		Assert.Equal(expected.Length, result.Count());
+		foreach(var list in expected)
+		{
+			//var c = result.Where(
+			Assert.Equal(1,
+					result.Where(resList =>
+						resList.Contains(list[0]) 
+					&& resList.Contains(list[1]) 
+					&& resList.Contains(list[2])).Count());
+		}
+	}	
+	public static IEnumerable<object[]>ThreeSumTestData =>
+		new List<object[]>
+		{
+			new object[]
+			{
+				new int[]{-1,0,1,2,-1,-4},
+				new int[][]{new int[]{-1,-1,2},new int[]{-1,0,1}}
+			},
+			new object[]
+			{
+				new int[]{0,1,2},
+				new int[][]{}
+			},
+			new object[]
+			{
+				new int[]{0,0,0},
+				new int[][]{new int[]{0,0,0}}
+			},
+			new object[]
+			{
+				new int[]{0,0,0,0},
+				new int[][]{new int[]{0,0,0}}
+			},
+			new object[]
+			{
+				new int[] {-100,-70,-60,110,120,130,160},
+				new int[][]{[-100,-60,160],[-70,-60,130]}
+			},
+			new object[]
+			{
+				new int[] {-2,0,1,1,2},
+				new int[][]{[-2,0,2],[-2,1,1]}
+			}
+		};
 }

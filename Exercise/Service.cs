@@ -839,24 +839,99 @@ public static class Service
 	/// Leetcode 15. 3Sum.
 	/// Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
 	/// such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+	/// Apparently it's still to slow O(N^2) but idk how to speed it up.
 	public static IList<IList<int>> ThreeSum(int[] nums)
 	{
-		Dictionary<int,List<int>> groupedValues = []; 
 		IList<IList<int>> result = new List<IList<int>>();
+		Dictionary<int,int> numCount = [];
+		HashSet<(int, int, int)> resSet = []; 
 
-		//first loop is grouping values in dictionary and calculationg output for 0 and 1 
-		int searchedValue = 0 - nums[0] - nums[1];
-		for(int i = 2; i < nums.Length; i++)
+		for(int i = 0; i < nums.Length; i++)
 		{
-			if(!groupedValues.TryAdd(nums[i], new List<int>() {i})) 
-				groupedValues[nums[i]].Add(i);
-
-			if(nums[i] == searchedValue)
+			int a = nums[i];
+			if(!numCount.TryAdd(a, 1))
 			{
-				result.Add(new List<int>() {0,1,i});
+				numCount[a] = numCount[a] + 1;
 			}
 		}
-		//TODO: in a while loop go through all possible solutions ;)	
+
+		for(int i = 0; i < nums.Length - 1; i++)
+		{
+			int a = nums[i];
+			for(int j = i + 1; j < nums.Length; j++)
+			{
+				int b = nums[j];
+				int c = 0 - a - b;
+
+				// guard if the same sequence was already added
+				if(!resSet.Add((a,b,c)))
+					continue;
+				// if not first add all possible combinations to the helper set
+				resSet.Add((a,c,b));
+				resSet.Add((b,c,a));
+				resSet.Add((b,a,c));
+				resSet.Add((c,a,b));
+				resSet.Add((c,b,a));	
+
+				//if all numbers are the same only 0,0,0 is
+				//possible so we need 3 zeros in nums
+				if(a==b && b==c) 
+				{
+					if(a==0 && numCount[0] >= 3)
+						result.Add([a,b,c]);
+					continue;
+				}
+				//if c is same as b or a
+				//we need to have two occurences of c in nums
+				if(c==b || c==a)
+				{
+					if(numCount.TryGetValue(c,out int count) && count >=2)
+						result.Add([a,b,c]);
+					continue;
+				}
+				//if c is different from both k
+				//then we need just one occurence of c in nums
+				if(numCount.ContainsKey(c))
+					result.Add([a,b,c]);
+			}
+		}
+		return result;
+	}
+	public static IList<IList<int>> ThreeSumFromSolution(int[] nums)
+	{
+		Array.Sort(nums);
+		IList<IList<int>> result = new List<IList<int>>();
+
+		for(int i = 0; i < nums.Length - 2; i++)
+		{
+			int a = nums[i];
+			if(i > 0 && a == nums[i-1])
+				continue;
+			int j = i+1;
+			int k = nums.Length-1;
+
+			while(j < k)
+			{
+				int b = nums[j];
+				int c = nums[k];
+				int sum = a + b + c;
+				if(sum == 0)
+				{
+					result.Add([a,b,c]);
+					do
+						j++;
+					while(j<k && nums[j] == b);
+				}
+				else if(sum > 0)
+				{
+					k--;
+				}
+				else
+				{
+					j++;
+				}
+			}
+		}
 		return result;
 	}
 }
