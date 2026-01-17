@@ -907,6 +907,7 @@ public static class Service
 			int a = nums[i];
 			if(i > 0 && a == nums[i-1])
 				continue;
+
 			int j = i+1;
 			int k = nums.Length-1;
 
@@ -933,5 +934,40 @@ public static class Service
 			}
 		}
 		return result;
+	}
+	
+	public static int ThreeSumClosest(int[] nums, int target)
+	{
+		Array.Sort(nums);
+		int minDiff = 99999;
+		int output = 9999;
+		for(int i = 0; i < nums.Length - 2; i++)
+		{
+			int j = i+1;
+			int k = nums.Length -1;
+			while(j<k)
+			{
+				int sum = nums[i] + nums[j] + nums[k];
+				int diff = Math.Abs(target - sum);
+				if(diff == 0)
+				{
+					return sum;
+				}
+				if(diff < minDiff)
+				{
+					minDiff = diff;
+					output = sum;
+				}
+				if(sum<target)
+				{
+					j++;
+				}
+				else
+				{
+					k--;
+				}
+			}
+		}
+		return output;
 	}
 }

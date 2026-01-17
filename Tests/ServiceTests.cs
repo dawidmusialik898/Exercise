@@ -322,7 +322,6 @@ public class ServiceTests
 		Assert.Equal(expected.Length, result.Count());
 		foreach(var list in expected)
 		{
-			//var c = result.Where(
 			Assert.Equal(1,
 					result.Where(resList =>
 						resList.Contains(list[0]) 
@@ -341,7 +340,6 @@ public class ServiceTests
 		Assert.Equal(expected.Length, result.Count());
 		foreach(var list in expected)
 		{
-			//var c = result.Where(
 			Assert.Equal(1,
 					result.Where(resList =>
 						resList.Contains(list[0]) 
@@ -383,4 +381,16 @@ public class ServiceTests
 				new int[][]{[-2,0,2],[-2,1,1]}
 			}
 		};
+	
+	[Theory]
+	[InlineData(new int[] {0,0,0},1,0)]
+	[InlineData(new int[] {-1,2,1,-4},1,2)]
+	[InlineData(new int[] {10,20,30,40,50,60,70,80,90},1,60)]
+	public void ThreeSumClosestTests(int[] input, int target, int expected)
+	{
+		// act
+		int result = Service.ThreeSumClosest(input,target);
+		// assert
+		Assert.Equal(expected,result);
+	}
 }
