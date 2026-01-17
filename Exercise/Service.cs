@@ -897,6 +897,7 @@ public static class Service
 		}
 		return result;
 	}
+
 	public static IList<IList<int>> ThreeSumFromSolution(int[] nums)
 	{
 		Array.Sort(nums);
@@ -936,6 +937,7 @@ public static class Service
 		return result;
 	}
 	
+	/// Leetcode 16
 	public static int ThreeSumClosest(int[] nums, int target)
 	{
 		Array.Sort(nums);
@@ -969,5 +971,59 @@ public static class Service
 			}
 		}
 		return output;
+	}
+
+	/// Leetcode 18
+	public static IList<IList<int>> FourSum(int[] nums, int target)
+	{
+		Array.Sort(nums);
+		IList<IList<int>> result = new List<IList<int>>();
+
+		if(nums.Length < 4)
+			return result;
+
+		for(int i = 0; i < nums.Length - 3; i++)
+		{
+			int a = nums[i];
+			if(i > 0 && a == nums[i-1])
+				continue;
+
+			for(int j = i+1; j < nums.Length - 2; j++)
+			{
+				int b = nums[j];
+				if(j > i+1 && b == nums[j-1])
+					continue;
+
+				int k = j+1;
+				int l = nums.Length - 1;
+				
+				while(k<l)
+				{
+					int c = nums[k];
+					int d = nums[l];
+					long sum = (long)a+(long)b+(long)c+(long)d;
+					Console.WriteLine(sum);
+
+					if(sum == target)
+					{
+						result.Add([a,b,c,d]);
+						do
+							k++;
+						while(k<l && nums[k] == c);
+					}
+					else if(sum > target)
+					{
+						while(k<l && d==nums[l])
+						l--;
+					}
+					else if(sum < target)
+					{
+						while(k<l && c==nums[k])
+						k++;
+					}
+				}
+			}
+		}
+		return result;
 	}
 }

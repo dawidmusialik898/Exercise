@@ -329,6 +329,7 @@ public class ServiceTests
 					&& resList.Contains(list[2])).Count());
 		}
 	}
+
 	[Theory]
 	[MemberData(nameof(ThreeSumTestData))]
 	public void ThreeSumFromSolution(int[] input, int[][] expected)
@@ -347,6 +348,7 @@ public class ServiceTests
 					&& resList.Contains(list[2])).Count());
 		}
 	}	
+
 	public static IEnumerable<object[]>ThreeSumTestData =>
 		new List<object[]>
 		{
@@ -393,4 +395,77 @@ public class ServiceTests
 		// assert
 		Assert.Equal(expected,result);
 	}
+
+	[Theory]
+	[MemberData(nameof(FourSumTestData))]
+	public void FourSumTests(int[] input, int target, int[][] expected)
+	{
+		// act	
+		var result = Service.FourSum(input,target);
+	
+		// assert
+		Assert.Equal(expected.Length, result.Count());
+		foreach(var list in expected)
+		{
+			Assert.Equal(1,
+					result.Where(resList =>
+						resList.Contains(list[0]) 
+					&& resList.Contains(list[1]) 
+					&& resList.Contains(list[2])
+					&& resList.Contains(list[3])).Count());
+		}
+	}	
+
+	public static IEnumerable<object[]>FourSumTestData =>
+		new List<object[]>
+		{
+			new object[]
+			{
+				new int[]{1,0,-1,0,-2,2},
+				0,
+				new int[][]{[-2,-1,1,2],[2,0,0,2], [-1,0,0,1]}
+			},
+			new object[]
+			{
+				new int[]{2,2,2,2,2},
+				8,
+				new int[][]{[2,2,2,2]}
+			},
+			new object[]
+			{
+				new int[]{2,2,2,2,2,2,2,2},
+				8,
+				new int[][]{[2,2,2,2]}
+			},
+			new object[]
+			{
+				new int[]{0},
+				0,
+				new int[][]{}
+			},
+			new object[]
+			{
+				new int[]{0,0},
+				0,
+				new int[][]{}
+			},
+			new object[]
+			{
+				new int[]{0,0,0},
+				0,
+				new int[][]{}
+			},
+			new object[]
+			{
+				new int[]{0,0,0,0},
+				0,
+				new int[][]{[0,0,0,0]}
+			},
+			new object[]
+			{
+				new int[]{1000000000,1000000000,1000000000,1000000000},
+				-294967296,
+				new int[][]{}
+			}
+		};
 }
