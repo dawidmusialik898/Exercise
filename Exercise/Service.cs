@@ -1002,7 +1002,6 @@ public static class Service
 					int c = nums[k];
 					int d = nums[l];
 					long sum = (long)a+(long)b+(long)c+(long)d;
-					Console.WriteLine(sum);
 
 					if(sum == target)
 					{
@@ -1025,5 +1024,34 @@ public static class Service
 			}
 		}
 		return result;
+	}
+
+	/// Leetcode 27
+	public static int RemoveElement(int[] nums, int val)
+	{
+		int i = 0;
+		int j = nums.Length - 1;
+		int count = 0;
+
+		while(i<j)
+		{
+			while(i<j && nums[i] != val)
+				i++;
+			while(i<j && nums[j] == val)
+				j--;
+
+			if(i<j)
+			{
+				nums[i] = nums[j];
+				nums[j] = val;
+			}
+		}
+		for(int k = 0; k<nums.Length; k++)
+		{
+			if(nums[k] == val)
+				break;
+			count++;
+		}
+		return count;
 	}
 }

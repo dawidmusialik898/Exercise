@@ -468,4 +468,29 @@ public class ServiceTests
 				new int[][]{}
 			}
 		};
+
+	[Theory]
+	[InlineData(new int[]{3,2,2,3},3,new int[]{2,2},2)]
+	[InlineData(new int[]{0,1,2,2,3,0,4,2},2,new int[]{0,1,4,0,3},5)]
+	[InlineData(new int[]{0,0,0,0,0,0,0,0},0,new int[]{},0)]
+	[InlineData(new int[]{2},3,new int[]{2},1)]
+	[InlineData(new int[]{2,2},3,new int[]{2,2},2)]
+	[InlineData(new int[]{2,2,2},3,new int[]{2,2,2},3)]
+	[InlineData(new int[]{3,3},3,new int[]{},0)]
+	[InlineData(new int[]{3,3,3},3,new int[]{},0)]
+	public void RemoveElementTests(
+			int[] nums, int val, int[] expectedNums, int expectedOutput)
+	{
+		//act
+		int output = Service.RemoveElement(nums, val);
+
+		//assert
+		Assert.Equal(expectedOutput, output);
+
+		var trimmed = nums[..output].ToList();
+		for(int i = 0; i<expectedNums.Length; i++)
+		{
+			Assert.True(trimmed.Remove(expectedNums[i]));
+		}
+	}
 }
