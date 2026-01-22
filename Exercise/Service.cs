@@ -1098,4 +1098,15 @@ public static class Service
 		index++;
 		Array.Reverse(nums,index, nums.Length - index);
 	}
+
+	//Leetcode 33. Have to be O(log n)
+	public static int Search(int[] nums, int target)
+	{
+		//sth like that:
+		//first do the search if target exists - binary search, if not return -1
+		//
+		//if it exists then find rotation point which would be fist smaller than nums[0]
+		//
+		//length ot the array - index + index of target is ther result??
+	}
 }
