@@ -493,4 +493,58 @@ public class ServiceTests
 			Assert.True(trimmed.Remove(expectedNums[i]));
 		}
 	}
+	
+	[Theory]
+	[InlineData(new int[]{1,2,3}, new int[]{1,3,2})]
+	[InlineData(new int[]{2,3,1}, new int[]{3,1,2})]
+	[InlineData(new int[]{3,1,2}, new int[]{3,2,1})]
+	//----------------------------------------------
+	[InlineData(new int[]{1,1,5}, new int[]{1,5,1})]
+	[InlineData(new int[]{1,5,1}, new int[]{5,1,1})]
+	//----------------------------------------------
+	//----------------------------------------------
+	[InlineData(new int[]{1,2,3,4}, new int[]{1,2,4,3})]
+	[InlineData(new int[]{1,2,4,3}, new int[]{1,3,2,4})]
+	[InlineData(new int[]{1,3,2,4}, new int[]{1,3,4,2})]
+	[InlineData(new int[]{1,3,4,2}, new int[]{1,4,2,3})]
+	[InlineData(new int[]{1,4,2,3}, new int[]{1,4,3,2})]
+	[InlineData(new int[]{1,4,3,2}, new int[]{2,1,3,4})]
+	[InlineData(new int[]{2,1,3,4}, new int[]{2,1,4,3})]
+	[InlineData(new int[]{2,1,4,3}, new int[]{2,3,1,4})]
+	public void NextPermutationTests(int[]input, int[]expected)
+	{
+		Service.NextPermutation(input);
+		Assert.Equal(expected,input);
+	}
+
+	[Theory]
+	[InlineData(new int[]{3,2,1}, new int[]{1,2,3})]
+	[InlineData(new int[]{5,5,1}, new int[]{1,5,5})]
+	[InlineData(new int[]{4,3,2,1,0}, new int[]{0,1,2,3,4})]
+	public void NextPermutationTestsIsHandlingReverts(int[]input, int[]expected)
+	{
+		Service.NextPermutation(input);
+		Assert.Equal(expected,input);
+	}
+
+	[Theory]
+	[InlineData(new int[]{1,1,1}, new int[]{1,1,1})]
+	[InlineData(new int[]{0,0,0}, new int[]{0,0,0})]
+	public void NextPermutationTestsIsHandlingSameDigits(int[]input, int[]expected)
+	{
+		Service.NextPermutation(input);
+		Assert.Equal(expected,input);
+	}
+
+	[Theory]
+	[InlineData(new int[]{1}, new int[]{1})]
+	[InlineData(new int[]{2}, new int[]{2})]
+	[InlineData(new int[]{0,0}, new int[]{0,0})]
+	[InlineData(new int[]{0,1}, new int[]{1,0})]
+	[InlineData(new int[]{1,0}, new int[]{0,1})]
+	public void NextPermutationTestsIsHandlingSinglesAndDoubles(int[]input, int[]expected)
+	{
+		Service.NextPermutation(input);
+		Assert.Equal(expected,input);
+	}
 }

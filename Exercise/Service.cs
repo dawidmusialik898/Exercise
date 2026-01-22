@@ -1054,4 +1054,48 @@ public static class Service
 		}
 		return count;
 	}
+	
+	/// Leetcode 31
+	public static void NextPermutation(int[]nums)
+	{
+		if(nums.Length == 1)
+			return;
+
+		int max = nums[nums.Length - 1];
+		int index = -1;
+		for(int i = nums.Length - 1; i >= 0; i--)
+		{
+			if (nums[i]<max)
+			{
+				index = i;
+				break;
+			}
+			if (nums[i]>max)
+			{
+				max = nums[i];
+			}
+		}
+
+		if(index == -1) 
+		{
+			Array.Reverse(nums);
+			return;
+		}
+
+		int smallestBigger = 999;
+		int sbi = nums.Length - 1;
+		for(int i = index+1; i < nums.Length; i++)
+		{
+			if(nums[i] > nums[index] && nums[i] < smallestBigger)
+			{
+				smallestBigger = nums[i];
+				sbi = i;
+			}
+		}
+		nums[sbi] = nums[index];
+		nums[index] = smallestBigger;
+
+		index++;
+		Array.Reverse(nums,index, nums.Length - index);
+	}
 }
