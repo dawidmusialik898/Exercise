@@ -1183,4 +1183,12 @@ public static class Service
 		while(first <= last);
 		return -1;
 	}
+
+	// Leetcode 34
+	public static int[] SearchRange(int[] nums, int target)
+	{
+		//idea is to do binary search searching for two double values
+		//first: [!=7][==7] second: [==7][!=7]
+		//so it's just binary search with little twist
+	}
 }
