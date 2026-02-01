@@ -1102,11 +1102,85 @@ public static class Service
 	//Leetcode 33. Have to be O(log n)
 	public static int Search(int[] nums, int target)
 	{
-		//sth like that:
-		//first do the search if target exists - binary search, if not return -1
-		//
-		//if it exists then find rotation point which would be fist smaller than nums[0]
-		//
-		//length ot the array - index + index of target is ther result??
+		//to achive O(log n) binary search is required.
+		int first = 0;
+		int last = nums.Length - 1;
+		int mid = (last - first)/2;
+		bool isRotated = nums[first] > nums[last];
+		do
+		{
+			if(nums[first] == target)
+				return first;
+			if(nums[last] == target)
+				return last;
+			mid = (last - first)/2 + first;
+			if(nums[mid] == target)
+				return mid;
+			if(last - first < 2)
+				return - 1;
+			
+			if(isRotated)
+			{
+				if(target < nums[mid])
+				{
+					if(nums[mid] > nums[first])
+					{
+						if(target > nums[first])
+						{
+							first++; 
+							last = mid - 1;
+							isRotated = false;
+						}
+						else//target < nums[first]
+						{
+							last--;
+							first = mid + 1;
+						}
+					}
+					else // nums[mid] < nums[first]
+					{
+						last = mid - 1;
+						first ++;
+					}
+				}
+				else//target > nums[mid]
+				{
+					if(nums[mid] > nums[first])
+					{
+						first = mid + 1;
+						last--;
+					}
+					else // nums[mid] < nums[first]
+					{
+						if(target > nums[first])
+						{
+							first++;
+							last = mid - 1;
+						}
+						else
+						{
+							first = mid + 1;
+							last--;
+							isRotated = false;
+						}
+					}
+				}
+			}
+			else//array not rotated, easy binary search
+			{
+				if(nums[mid] > target)
+				{
+					last = mid - 1;
+					first++;
+				}
+				else
+				{
+					first = mid + 1;
+					last --;
+				}
+			}
+		}
+		while(first <= last);
+		return -1;
 	}
 }

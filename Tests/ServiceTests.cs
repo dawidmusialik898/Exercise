@@ -547,4 +547,54 @@ public class ServiceTests
 		Service.NextPermutation(input);
 		Assert.Equal(expected,input);
 	}
+
+	[Theory]
+	[InlineData(new int[]{1}, 2, -1)]
+	[InlineData(new int[]{1}, 1, 0)]
+	[InlineData(new int[]{1,2}, 3, -1)]
+	[InlineData(new int[]{1,2}, 2, 1)]
+	[InlineData(new int[]{2,1}, 2, 0)]
+	public void TestSearchOneAndTwoElemArray(int[] nums, int target, int expectedOut)
+	{
+		var output = Service.Search(nums,target);
+		Assert.Equal(expectedOut,output);
+	}
+
+	[Theory]
+	[InlineData(new int[]{1,2,3}, 3, 2)]
+	[InlineData(new int[]{1,2,3}, 9, -1)]
+	[InlineData(new int[]{1,2,3,4,5,6,7}, 3, 2)]
+	[InlineData(new int[]{1,2,3,4,5,6,7}, 3, 2)]
+	[InlineData(new int[]{1,2,3,4,5,6,7,8}, 4, 3)]
+	[InlineData(new int[]{1,2,3,4,5,6,7,8}, 5, 4)]
+	[InlineData(new int[]{1,2,3,4,5,6,7,8}, 9, -1)]
+	[InlineData(new int[]{1,11,111,1111,2222,3333,4444}, 4444, 6)]
+	[InlineData(new int[]{1,11,111,1111,2222,3333,4444}, 2, -1)]
+	public void TestSearchCorrectResutlForNotRotatedArray(
+		int[] nums, int target, int expectedOut)
+	{
+		var output = Service.Search(nums,target);
+		Assert.Equal(expectedOut,output);
+	}
+
+	[Theory]
+	[InlineData(new int[]{3,1,2}, 3, 0)]
+	[InlineData(new int[]{2,3,1}, 3, 1)]
+	[InlineData(new int[]{2,3,1}, 9, -1)]
+	[InlineData(new int[]{3,4,5,6,7,1,2}, 3, 0)]
+	[InlineData(new int[]{3,4,5,6,7,1,2}, 9, -1)]
+	[InlineData(new int[]{3,4,5,6,7,8,1,2}, 6, 3)]
+	[InlineData(new int[]{3,4,5,6,7,8,1,2}, 7, 4)]
+	[InlineData(new int[]{3,4,5,6,7,8,1,2}, 9, -1)]
+	[InlineData(new int[]{6,7,8,9,10,1,2,3,4,5}, 8, 2)]
+	[InlineData(new int[]{6,7,8,9,10,1,2,3,4,5}, 3, 7)]
+	[InlineData(new int[]{2222,3333,4444,1,11,111,1111}, 4444, 2)]
+	[InlineData(new int[]{2222,3333,4444,1,11,111,1111}, 2, -1)]
+	[InlineData(new int[]{5,1,2,3,4}, 1, 1)]
+	public void TestSearchCorrectResutlForRotatedArray(
+		int[] nums, int target, int expectedOut)
+	{
+		var output = Service.Search(nums,target);
+		Assert.Equal(expectedOut,output);
+	}
 }
