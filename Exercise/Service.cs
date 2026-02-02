@@ -1190,5 +1190,90 @@ public static class Service
 		//idea is to do binary search searching for two double values
 		//first: [!=7][==7] second: [==7][!=7]
 		//so it's just binary search with little twist
+		
+		//but first answer case with whole table filled with target
+		//to prevernt out of bounce error
+		int first = 0;
+		int last = nums.Length - 1;
+		int bfirst = first;
+		int blast = last;
+		int a = - 1;
+		int b = - 1;
+		int mid;
+
+		//empty array
+		if(nums.Length == 0)
+		{
+			return [-1,-1];
+		}
+		//one value
+		if(nums.Length == 1)
+		{
+			return nums[first] == target ? [0,0] : [-1,-1];
+		}
+
+		if(nums[first] == target)
+		{
+			a = first;
+		}
+		else first++;
+
+		if(nums[last] == target)
+		{
+			b = last;
+		}
+		else last--;
+
+		// search for a if it was not first elem
+		if(a == -1)
+		{
+			while(first<=last)
+			{
+				mid = (first + last) / 2;
+				if(nums[mid] < target)
+				{
+					first = mid + 1;
+				}
+				else if(nums[mid] > target)
+				{
+					last = mid - 1;
+				}
+				else if(nums[mid] == target && nums[mid-1] == target)
+				{
+					last = mid - 1;
+				}
+				else // nums[mid] == target && nums[mid-1] != target)
+				{
+					a = mid;
+					bfirst = mid;
+					break;
+				}
+			}
+		}
+		// search for b if it was not last elem and if a was found
+		Console.WriteLine($"bf: {bfirst}, bl: {blast}");
+		if(b == -1 && a != - 1)
+		{
+			while(bfirst<=blast)
+			{
+				mid = (bfirst + blast) / 2;
+				// there is no possibility that nums[mid] < target
+				if(nums[mid] > target)
+				{
+					blast = mid-1;
+				}
+				else if(nums[mid] == target && nums[mid+1]==target)
+				{
+					bfirst = mid+1;
+				}
+				else
+				{
+					b = mid;
+					break;
+				}
+			}
+		}
+
+		return [a,b];
 	}
 }
