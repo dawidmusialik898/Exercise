@@ -1251,7 +1251,6 @@ public static class Service
 			}
 		}
 		// search for b if it was not last elem and if a was found
-		Console.WriteLine($"bf: {bfirst}, bl: {blast}");
 		if(b == -1 && a != - 1)
 		{
 			while(bfirst<=blast)
@@ -1275,5 +1274,29 @@ public static class Service
 		}
 
 		return [a,b];
+	}
+
+	// leetcode 35
+	public static int SearchInsert(int[] nums, int target)
+	{
+		int f = 0;
+		int l = nums.Length - 1;
+		int m;
+
+		while(f < l)
+		{
+			m = (f+l)/2;
+			if(nums[m] > target)
+				l = m-1;
+			else if(nums[m] < target)
+				f = m+1;
+			else
+				return m;
+		}
+
+			if(nums[f] >= target)
+				return f;
+			else
+				return f+1;
 	}
 }

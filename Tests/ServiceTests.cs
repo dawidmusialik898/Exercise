@@ -717,4 +717,50 @@ public class ServiceTests
 		var result = Service.SearchRange(nums, target);
 		Assert.Equal(expected, result);
 	}
+
+	[Theory]
+	[InlineData(new int[]{1}, -5, 0)]
+	[InlineData(new int[]{1}, 5, 1)]
+	[InlineData(new int[]{1}, 1, 0)]
+	//-----
+	[InlineData(new int[]{1,3}, -5, 0)]
+	[InlineData(new int[]{1,3}, 5, 2)]
+	[InlineData(new int[]{1,3}, 1, 0)]
+	[InlineData(new int[]{1,3}, 3, 1)]
+	[InlineData(new int[]{1,3}, 2, 1)]
+	//-----
+	[InlineData(new int[]{1,2,3,4,5}, -55, 0)]
+	[InlineData(new int[]{1,2,3,4,5}, 0, 0)]
+	[InlineData(new int[]{1,2,3,4,5}, 1, 0)]
+	[InlineData(new int[]{1,2,3,4,5}, 2, 1)]
+	[InlineData(new int[]{1,2,3,4,5}, 3, 2)]
+	[InlineData(new int[]{1,2,3,4,5}, 4, 3)]
+	[InlineData(new int[]{1,2,3,4,5}, 5, 4)]
+	[InlineData(new int[]{1,2,3,4,5}, 6, 5)]
+	[InlineData(new int[]{1,2,3,4,5}, 55, 5)]
+	//---
+	[InlineData(new int[]{1,2,3,4,5,6}, -55, 0)]
+	[InlineData(new int[]{1,2,3,4,5,6}, 0, 0)]
+	[InlineData(new int[]{1,2,3,4,5,6}, 1, 0)]
+	[InlineData(new int[]{1,2,3,4,5,6}, 2, 1)]
+	[InlineData(new int[]{1,2,3,4,5,6}, 3, 2)]
+	[InlineData(new int[]{1,2,3,4,5,6}, 4, 3)]
+	[InlineData(new int[]{1,2,3,4,5,6}, 5, 4)]
+	[InlineData(new int[]{1,2,3,4,5,6}, 6, 5)]
+	[InlineData(new int[]{1,2,3,4,5,6}, 7, 6)]
+	[InlineData(new int[]{1,2,3,4,5,6}, 55, 6)]
+	//---
+	[InlineData(new int[]{2,4,6,8,10,12}, -55, 0)]
+	[InlineData(new int[]{2,4,6,8,10,12}, 3, 1)]
+	[InlineData(new int[]{2,4,6,8,10,12}, 5, 2)]
+	[InlineData(new int[]{2,4,6,8,10,12}, 7, 3)]
+	[InlineData(new int[]{2,4,6,8,10,12}, 9, 4)]
+	[InlineData(new int[]{2,4,6,8,10,12}, 11, 5)]
+	[InlineData(new int[]{2,4,6,8,10,12}, 55, 6)]
+	public void SearchInsertTests(int[] nums, int target, int expected)
+	{
+		var result = Service.SearchInsert(nums, target);
+		Assert.Equal(expected, result);
+	}
+
 }
