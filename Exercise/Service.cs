@@ -1299,4 +1299,32 @@ public static class Service
 			else
 				return f+1;
 	}
+
+	// letcode 36
+	public static bool IsValidSudoku(char[][] board)
+	{
+		const int L = 9;
+		//create hashsets for each column, row, square
+		HashSet<char>[]ro = [[],[],[],[],[],[],[],[],[]];
+		HashSet<char>[]co = [[],[],[],[],[],[],[],[],[]];
+		HashSet<char>[]sq = [[],[],[],[],[],[],[],[],[]];
+
+		for(int x = 0; x < L; x++)
+		{
+			for(int y = 0; y < L; y++)
+			{
+				char c = board[x][y];
+				if(c!='.')
+				{
+					if(!ro[x].Add(c)) return false;
+					if(!co[y].Add(c)) return false;
+					int sx = x/3;
+					int sy = y/3;
+					int si = sx * 3 + sy;
+					if(!sq[si].Add(c)) return false;
+				}
+			}
+		}
+		return true;
+	}
 }
