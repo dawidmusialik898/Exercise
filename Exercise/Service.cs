@@ -832,6 +832,7 @@ public static class Service
     /// Leetcode 4, Median of two sorted arrays.
     public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
     {
+		//TODO: implement it in more free time
 		//requirement is to do int in O(log(m+n)) where m and n are array size.
 		return 0d;
     }
@@ -1326,5 +1327,12 @@ public static class Service
 			}
 		}
 		return true;
+	}
+
+	//leetcode 37
+	public static void SolveSudoku(char[][] board)
+	{
+		//TODO: implement when i'll have some more time
+		return;
 	}
 }
