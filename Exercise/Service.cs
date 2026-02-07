@@ -828,15 +828,6 @@ public static class Service
         return maxWater;
     }
 
-    /// <summary>
-    /// Leetcode 4, Median of two sorted arrays.
-    public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
-    {
-		//TODO: implement it in more free time
-		//requirement is to do int in O(log(m+n)) where m and n are array size.
-		return 0d;
-    }
-
 	/// Leetcode 15. 3Sum.
 	/// Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
 	/// such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
@@ -1329,10 +1320,78 @@ public static class Service
 		return true;
 	}
 
+	/// <summary>
+    /// Leetcode 4, Median of two sorted arrays.
+    public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
+    {
+		//TODO: implement it in more free time
+		//requirement is to do int in O(log(m+n)) where m and n are array size.
+		return 0d;
+    }
+
 	//leetcode 37
 	public static void SolveSudoku(char[][] board)
 	{
 		//TODO: implement when i'll have some more time
 		return;
+	}
+
+	//leetcode 39
+	//NOTE: solution works but Runtime and memory
+	//are not great accordning to leetcode stats
+	public static IList<IList<int>> CombinationSum(int[] candidates, int t)
+	{
+		Span<int>c = candidates;
+		List<IList<int>> results = [];
+		List<int> current = [];
+		CombinationSumRec(c,t, current, results);
+		return results;
+	}
+
+	private static void CombinationSumRec(
+			Span<int> c, int t, List<int> current, List<IList<int>> results)
+	{
+		for(int i = c.Length - 1; i >=0; i--)
+		{
+			int newTarget = t - c[i];
+			if(newTarget < 0)
+			{
+				continue;
+			}
+
+			List<int> newCurrent = current.Append(c[i]).ToList();
+
+			if(newTarget == 0)
+			{
+				results.Add(newCurrent);
+				continue;
+			}
+
+			CombinationSumRec(c.Slice(0, i+1), newTarget, newCurrent, results);
+		}
+	}
+
+	//leetcode 1653
+	//NOTE: code taken from solution,
+	//it's so easy that I feel weird to not think of it
+	public static int MinimumDeletions(string s)
+	{
+		//find balancePoint as first b character
+		int b = 0; //b occurences
+		int sum = 0;
+		for(int i = 0; i < s.Length; i++)
+		{
+			if (s[i] == 'b')
+			{
+                b++;
+            } 
+			else if (b != 0)
+			{
+                sum++;
+                b--;
+            }
+		}
+
+		return sum;
 	}
 }

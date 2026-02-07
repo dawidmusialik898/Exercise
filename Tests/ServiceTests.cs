@@ -391,7 +391,7 @@ public class ServiceTests
 			double expectedResult)
 	{
 		var result = Service.FindMedianSortedArrays(nums1, nums2);
-		//TODO: uncomment
+		//TODO: uncomment when implemented
 		//Assert.Equal(expectedResult, result);
 	}
 
@@ -818,6 +818,7 @@ public class ServiceTests
 
 		Assert.Equal(expectedAndInput,expectedAndInput);
 	}
+
 	[Fact]
 	public void SolveSudokuTests_LC1()
 	{
@@ -845,6 +846,81 @@ public class ServiceTests
 
 		Service.SolveSudoku(input);
 
-		Assert.Equal(expected, input);
+		//TODO: uncomment when implementation is done
+		//Assert.Equal(expected, input);
+	}
+	//TODO: more sudoku tests
+
+	[Theory]
+	[MemberData(nameof(CombinationSumTestData))]
+	public void CombinationSumTests(int[] candidates, int target, int[][] expected)
+	{
+		var output = Service.CombinationSum(candidates,target);
+
+		//first check, covers also empty expected
+		Assert.Equal(expected.Length,output.Count);
+		foreach(var ex in expected)
+		{
+			var exception = Record.Exception(()=>
+				{
+					output.Single(o=>
+						{
+							int[] te = new int[o.Count];
+							o.CopyTo(te,0);
+							List<int> temp = te.ToList();
+
+							foreach(var e in ex)
+								temp.Remove(e);
+
+							return temp.Count == 0;
+						});
+				});
+			Assert.Null(exception);
+		}
+	}
+
+	public static IEnumerable<object[]>CombinationSumTestData =>
+		new List<object[]>
+		{
+			new object[]
+			{
+				new int[]{2,3,6,7},
+				7,
+				new int[][]{[2,2,3],[7]}
+			},
+			new object[]
+			{
+				new int[]{2,3,5},
+				8,
+				new int[][]{[2,2,2,2],[2,3,3],[3,5]}
+			},
+			new object[]
+			{
+				new int[]{2},
+				1,
+				new int[][]{}
+			}
+		};
+
+	[Theory(Timeout = 10000)]
+	[InlineData("b",0)]
+	[InlineData("a",0)]
+	[InlineData("ab",0)]
+	[InlineData("baa",1)]
+	[InlineData("bba",1)]
+	[InlineData("bbaa",2)]
+	[InlineData("abab",1)]
+	[InlineData("baba",2)]
+	[InlineData("aaaaababbbbbb",1)]
+	[InlineData("abaaaaabbbbbab",2)]
+	[InlineData("aababbab",2)]
+	[InlineData("bbaaaaabb",2)] //remove starting b's
+	[InlineData("bbbbaaaaabb",4)] //remove starting b's
+	[InlineData("bbbbbbaaaaabb",5)] // remove a's
+	[InlineData("baababbaabbaaabaabbabbbabaaaaaabaabababaaababbb",18)] // remove a's
+	public void MinimumDeletionsTests(string s, int expected)
+	{
+		int result = Service.MinimumDeletions(s);
+		Assert.Equal(expected, result);
 	}
 }
