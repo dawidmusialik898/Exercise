@@ -1394,4 +1394,18 @@ public static class Service
 
 		return sum;
 	}
+
+	//leetcode 42
+	public static int Trap(int[] hight)
+	{
+		int [] h = hight;
+		int s = 0;//sum
+		int ts = 0;//tempsum
+		int mi = 0; //max index
+		for(int i = 1; i < h.Length; i++)
+		{
+			if(h[i] > 
+		}
+		return sum;
+	}
 }

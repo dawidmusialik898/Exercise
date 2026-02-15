@@ -902,7 +902,7 @@ public class ServiceTests
 			}
 		};
 
-	[Theory(Timeout = 10000)]
+	[Theory(Timeout = 1000)]
 	[InlineData("b",0)]
 	[InlineData("a",0)]
 	[InlineData("ab",0)]
@@ -922,5 +922,22 @@ public class ServiceTests
 	{
 		int result = Service.MinimumDeletions(s);
 		Assert.Equal(expected, result);
+	}
+
+	[Theory(Timeout = 1000)]
+	[InlineData(new int[]{0}, 0)]
+	[InlineData(new int[]{0,1}, 0)]
+	[InlineData(new int[]{1,1}, 0)]
+	[InlineData(new int[]{1,0,1}, 1)]
+	[InlineData(new int[]{1,0,0,1}, 2)]
+	[InlineData(new int[]{2,0,0,1}, 2)]
+	[InlineData(new int[]{1,0,0,2}, 2)]
+	[InlineData(new int[]{2,0,0,2}, 4)]
+	[InlineData(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}, 6)]
+	[InlineData(new int[]{4,2,0,3,2,5}, 9)]
+	public void WaterTrapTests(int[] input, int expected)
+	{
+		int result = Service.Trap(input);
+		Assert.Equal(expected,result);
 	}
 }
